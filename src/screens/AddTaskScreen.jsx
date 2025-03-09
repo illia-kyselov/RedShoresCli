@@ -40,10 +40,13 @@ export default function AddTaskScreen() {
     const isFormValid =
         taskName.trim() !== '' &&
         focusTime.trim() !== '' &&
-        breakTime.trim() !== '';
+        breakTime.trim() !== '' &&
+        fromTime < toTime;
 
     const handleAddPress = () => {
-        if (!isFormValid) {return;}
+        if (!isFormValid) {
+            return;
+        }
         const newTask = {
             id: Date.now(),
             name: taskName,

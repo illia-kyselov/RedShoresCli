@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
+import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

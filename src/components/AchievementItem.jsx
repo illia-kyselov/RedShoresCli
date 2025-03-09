@@ -53,13 +53,13 @@ export default AchievementItem;
 
 const styles = StyleSheet.create({
     container: {
-        width: 156,
         alignItems: 'center',
         marginHorizontal: 5,
         marginVertical: 15,
+        alignSelf: 'center',
     },
     achievementCircle: {
-        width: 156,
+        minWidth: 156,
         height: 60,
         borderRadius: 30,
         overflow: 'hidden',

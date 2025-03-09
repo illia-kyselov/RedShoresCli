@@ -13,9 +13,8 @@ import { useRoute } from '@react-navigation/native';
 import Sound from 'react-native-sound';
 import Slider from '@react-native-community/slider';
 
-// Импортируем SVG-компоненты
-import PlaySVG from '../../assets/home/PlaySVG';
-import PauseSVG from '../../assets/home/PauseSVG';
+import PlaySVG from '../assets/home/PlaySVG';
+import PauseSVG from '../assets/home/PauseSVG';
 
 export default function MoodDetailScreen() {
     const route = useRoute();
@@ -29,7 +28,7 @@ export default function MoodDetailScreen() {
     useEffect(() => {
         Sound.setCategory('Playback');
 
-        const soundObject = new Sound(item.audio, Sound.MAIN_BUNDLE, (error) => {
+        const soundObject = new Sound(item.audio, (error) => {
             if (error) {
                 console.log('Error loading sound', error);
                 return;
@@ -45,8 +44,22 @@ export default function MoodDetailScreen() {
         };
     }, [item.audio]);
 
+    useEffect(() => {
+        let interval;
+        if (isPlaying && sound) {
+            interval = setInterval(() => {
+                sound.getCurrentTime((seconds) => {
+                    setPosition(seconds);
+                });
+            }, 500);
+        }
+        return () => {
+            if (interval) {clearInterval(interval);}
+        };
+    }, [isPlaying, sound]);
+
     const handlePlayPause = () => {
-        if (!sound) return;
+        if (!sound) {return;}
 
         if (isPlaying) {
             sound.pause();
@@ -56,6 +69,9 @@ export default function MoodDetailScreen() {
                 if (success) {
                     setIsPlaying(false);
                     setPosition(0);
+                } else {
+                    console.log('Playback failed due to audio decoding errors');
+                    setIsPlaying(false);
                 }
             });
             setIsPlaying(true);
@@ -94,7 +110,7 @@ export default function MoodDetailScreen() {
             <View style={styles.playerContainer}>
                 <View style={styles.playerControls}>
                     <TouchableOpacity onPress={handlePlayPause} style={styles.playPauseButton}>
-                        {isPlaying ? <PauseSVG width={28} height={28} /> : <PlaySVG width={28} height={28} />}
+                        {isPlaying ? <PauseSVG /> : <PlaySVG />}
                     </TouchableOpacity>
 
                     <View style={styles.sliderContainer}>

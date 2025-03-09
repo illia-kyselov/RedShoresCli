@@ -10,13 +10,10 @@ import { addCompletedTask } from '../store/slices/statsSlice';
 const CongratulationsScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const route = useRoute();
-    const { task, taskId } = route.params || {};
+    const { task } = route.params || {};
 
     useEffect(() => {
-        if (taskId) {
-            dispatch(removeTask(taskId));
-        }
-
+        dispatch(removeTask(task.id));
         dispatch(incrementDaily());
         dispatch(incrementWeekly());
 
@@ -24,7 +21,7 @@ const CongratulationsScreen = ({ navigation }) => {
             const formattedDate = new Date(task.date).toISOString().slice(0, 10);
             dispatch(addCompletedTask(formattedDate));
         }
-    }, [dispatch, route.params, task, taskId]);
+    }, [dispatch, task]);
 
     return (
         <SafeAreaView style={styles.container}>

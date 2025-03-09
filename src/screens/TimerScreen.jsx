@@ -31,7 +31,16 @@ export default function TaskTimerScreen() {
 
         if (isPlaying) {
             interval = setInterval(() => {
-                setSecondsLeft((prev) => (prev > 0 ? prev - 1 : 0));
+                setSecondsLeft((prev) => {
+                    if (prev > 0) {
+                        return prev - 1;
+                    } else {
+                        clearInterval(interval);
+                        setTimeout(() => navigation.replace('Congratulations', { task }), 0);
+                        return 0;
+                    }
+                });
+
                 setFocusTimeLeft((prev) => {
                     if (prev <= 1) {
                         clearInterval(interval);
@@ -54,12 +63,10 @@ export default function TaskTimerScreen() {
                 });
             }, 1000);
         }
-
         return () => clearInterval(interval);
-    }, [isPlaying, breakTimeInitial, navigation]);
+    }, [isPlaying, breakTimeInitial, navigation, task]);
 
     const progress = useMemo(() => (initialSeconds === 0 ? 1 : (initialSeconds - secondsLeft) / initialSeconds), [initialSeconds, secondsLeft]);
-
     const timerValue = formatSeconds(secondsLeft);
     const focusValue = isPlaying ? formatSeconds(focusTimeLeft) : formatSeconds(breakTimeLeft);
     const focusLabel = isPlaying ? 'focus time' : 'break time';
