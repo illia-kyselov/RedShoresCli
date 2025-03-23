@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 function getTabBarVisibility(route) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? 'HomeMain';
-    if (routeName === 'Timer' || routeName === 'Congratulations') {
+    if (['Timer', 'Congratulations', 'UsefulArticles', 'ArticleDetails', 'QuizResult', 'QuizQuestion', 'Quiz'].includes(routeName)) {
         return { display: 'none' };
     }
     return {};

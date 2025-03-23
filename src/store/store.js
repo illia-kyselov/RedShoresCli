@@ -7,6 +7,8 @@ import userReducer from './slices/userSlice';
 import achievementsReducer from './slices/achievementsSlice';
 import tasksReducer from './slices/tasksSlice';
 import statsReducer from './slices/statsSlice';
+import usefulArticlesReducer from './slices/usefulArticlesSlice';
+import quizReducer from './slices/quizSlice';
 
 const rootReducer = combineReducers({
     mood: moodReducer,
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
     achievements: achievementsReducer,
     tasks: tasksReducer,
     stats: statsReducer,
+    usefulArticles: usefulArticlesReducer,
+    quiz: quizReducer,
 });
 
 const persistConfig = {
