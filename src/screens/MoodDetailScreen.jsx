@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-import Sound from 'react-native-sound';
 import Slider from '@react-native-community/slider';
 
 import PlaySVG from '../assets/home/PlaySVG';
@@ -20,70 +19,36 @@ export default function MoodDetailScreen() {
     const route = useRoute();
     const { item } = route.params;
 
-    const [sound, setSound] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [duration, setDuration] = useState(1);
-    const [position, setPosition] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(300);
+    const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
-        Sound.setCategory('Playback');
-
-        const soundObject = new Sound(item.audio, (error) => {
-            if (error) {
-                console.log('Error loading sound', error);
-                return;
-            }
-            setSound(soundObject);
-            setDuration(soundObject.getDuration());
-        });
-
-        return () => {
-            if (soundObject) {
-                soundObject.release();
-            }
-        };
-    }, [item.audio]);
-
-    useEffect(() => {
-        let interval;
-        if (isPlaying && sound) {
-            interval = setInterval(() => {
-                sound.getCurrentTime((seconds) => {
-                    setPosition(seconds);
+        let intervalId;
+        if (isRunning) {
+            intervalId = setInterval(() => {
+                setTimeLeft((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(intervalId);
+                        setIsRunning(false);
+                        return 0;
+                    }
+                    return prev - 1;
                 });
-            }, 500);
+            }, 1000);
         }
         return () => {
-            if (interval) {clearInterval(interval);}
+            clearInterval(intervalId);
         };
-    }, [isPlaying, sound]);
+    }, [isRunning]);
 
-    const handlePlayPause = () => {
-        if (!sound) {return;}
-
-        if (isPlaying) {
-            sound.pause();
-            setIsPlaying(false);
-        } else {
-            sound.play((success) => {
-                if (success) {
-                    setIsPlaying(false);
-                    setPosition(0);
-                } else {
-                    console.log('Playback failed due to audio decoding errors');
-                    setIsPlaying(false);
-                }
-            });
-            setIsPlaying(true);
-        }
+    const toggleTimer = () => {
+        setIsRunning((prev) => !prev);
     };
 
-    const handleSliderValueChange = (value) => {
-        if (sound) {
-            const newPosition = value * duration;
-            sound.setCurrentTime(newPosition);
-            setPosition(newPosition);
-        }
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
     };
 
     return (
@@ -108,23 +73,26 @@ export default function MoodDetailScreen() {
             </SafeAreaView>
 
             <View style={styles.playerContainer}>
-                <View style={styles.playerControls}>
-                    <TouchableOpacity onPress={handlePlayPause} style={styles.playPauseButton}>
-                        {isPlaying ? <PauseSVG /> : <PlaySVG />}
+                <View style={styles.inlineControls}>
+                    <TouchableOpacity
+                        onPress={toggleTimer}
+                        style={styles.playPauseButton}
+                    >
+                        {isRunning ? <PauseSVG /> : <PlaySVG />}
                     </TouchableOpacity>
 
-                    <View style={styles.sliderContainer}>
-                        <Slider
-                            style={{ flex: 1 }}
-                            minimumValue={0}
-                            maximumValue={1}
-                            value={position / duration}
-                            minimumTrackTintColor="#FFB600"
-                            maximumTrackTintColor="#FAF0D1"
-                            thumbTintColor="#FFFFFF"
-                            onSlidingComplete={handleSliderValueChange}
-                        />
-                    </View>
+                    <Slider
+                        style={styles.slider}
+                        minimumValue={0}
+                        maximumValue={1}
+                        value={(300 - timeLeft) / 300}
+                        minimumTrackTintColor="#FFB600"
+                        maximumTrackTintColor="#FAF0D1"
+                        thumbTintColor="#FFFFFF"
+                        disabled={true}
+                    />
+
+                    <Text style={styles.timeText}>{formatTime(timeLeft)}</Text>
                 </View>
             </View>
         </LinearGradient>
@@ -173,15 +141,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#02BBBE',
         paddingHorizontal: 16,
         paddingVertical: 10,
+        height: 50,
     },
-    playerControls: {
+    inlineControls: {
         flexDirection: 'row',
         alignItems: 'center',
     },
     playPauseButton: {
         marginRight: 10,
+        width: 32,
+        height: 32,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    sliderContainer: {
+    slider: {
         flex: 1,
+        marginRight: 10,
+    },
+    timeText: {
+        color: '#FFFFFF',
+        fontSize: 14,
+        fontFamily: 'Helvetica Neue',
     },
 });

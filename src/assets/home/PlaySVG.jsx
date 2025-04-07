@@ -1,10 +1,12 @@
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
+
 const PlaySVG = (props) => (
     <Svg
         xmlns="http://www.w3.org/2000/svg"
-        width={19}
-        height={19}
+        width={32}
+        height={32}
+        viewBox="0 0 19 19"
         fill="none"
         {...props}
     >
@@ -18,4 +20,5 @@ const PlaySVG = (props) => (
         />
     </Svg>
 );
+
 export default PlaySVG;
