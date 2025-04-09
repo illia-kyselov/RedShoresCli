@@ -4,11 +4,17 @@ import Svg, { Circle } from 'react-native-svg';
 
 const CIRCLE_SIZE = 250;
 
-export default function TimerCircle({ timerValue, progress }) {
+export default function TimerCircle({ timerValue, progress, customColors }) {
     const strokeWidth = 6;
     const radius = (CIRCLE_SIZE - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
     const dashOffset = circumference * (1 - progress);
+
+    const trackColor = customColors?.track || '#F1B0A7';
+    const progressColor = customColors?.progress || '#FFB600';
+    const timerTextColor = customColors
+        ? (customColors.timerValue || '#FFB600')
+        : '#FFFFFF';
 
     return (
         <View style={styles.timerCircleWrapper}>
@@ -17,7 +23,7 @@ export default function TimerCircle({ timerValue, progress }) {
                     cx={CIRCLE_SIZE / 2}
                     cy={CIRCLE_SIZE / 2}
                     r={radius}
-                    stroke="#F1B0A7"
+                    stroke={trackColor}
                     strokeWidth={strokeWidth}
                     fill="none"
                     strokeDasharray="2,8"
@@ -27,7 +33,7 @@ export default function TimerCircle({ timerValue, progress }) {
                     cx={CIRCLE_SIZE / 2}
                     cy={CIRCLE_SIZE / 2}
                     r={radius}
-                    stroke="#FFB600"
+                    stroke={progressColor}
                     strokeWidth={strokeWidth}
                     fill="none"
                     strokeDasharray={circumference}
@@ -37,7 +43,7 @@ export default function TimerCircle({ timerValue, progress }) {
                     origin={`${CIRCLE_SIZE / 2}, ${CIRCLE_SIZE / 2}`}
                 />
             </Svg>
-            <Text style={styles.timerValue}>{timerValue}</Text>
+            <Text style={[styles.timerValue, { color: timerTextColor }]}>{timerValue}</Text>
         </View>
     );
 }

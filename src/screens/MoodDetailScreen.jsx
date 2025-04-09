@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-import Slider from '@react-native-community/slider';
+import TimerCircle from '../components/TimerCircle'; // Импорт нового компонента
 
 import PlaySVG from '../assets/home/PlaySVG';
 import PauseSVG from '../assets/home/PauseSVG';
@@ -19,14 +19,15 @@ export default function MoodDetailScreen() {
     const route = useRoute();
     const { item } = route.params;
 
-    const [timeLeft, setTimeLeft] = useState(300);
+    const totalTime = 300; // Общее время в секундах
+    const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
         let intervalId;
         if (isRunning) {
             intervalId = setInterval(() => {
-                setTimeLeft((prev) => {
+                setTimeLeft(prev => {
                     if (prev <= 1) {
                         clearInterval(intervalId);
                         setIsRunning(false);
@@ -42,13 +43,28 @@ export default function MoodDetailScreen() {
     }, [isRunning]);
 
     const toggleTimer = () => {
-        setIsRunning((prev) => !prev);
+        setIsRunning(prev => !prev);
     };
 
     const formatTime = (seconds) => {
-        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
-        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        const mins = Math.floor(seconds / 60)
+            .toString()
+            .padStart(2, '0');
+        const secs = Math.floor(seconds % 60)
+            .toString()
+            .padStart(2, '0');
         return `${mins}:${secs}`;
+    };
+
+    // Вычисляем прогресс таймера от 0 до 1
+    const progress = (totalTime - timeLeft) / totalTime;
+
+    // Объект кастомных стилей для TimerCircle.
+    // По дефолту компонент использует свои стили, а если переданы эти пропсы, то заменяет желтый на указанные цвета.
+    const customTimerStyles = {
+        progress: '#FFB600', // Новый цвет прогресс бара
+        track: '#02BBBE',    // Новый цвет для фона трека (если TimerCircle поддерживает этот пропс)
+        // При необходимости можно добавить дополнительные свойства
     };
 
     return (
@@ -72,27 +88,22 @@ export default function MoodDetailScreen() {
                 </ScrollView>
             </SafeAreaView>
 
-            <View style={styles.playerContainer}>
-                <View style={styles.inlineControls}>
+            <View style={styles.timerSection}>
+                <TimerCircle
+                    timerValue={formatTime(timeLeft)}
+                    progress={progress}
+                    customColors={customTimerStyles}
+                />
+                <View style={styles.bottomRow}>
                     <TouchableOpacity
                         onPress={toggleTimer}
-                        style={styles.playPauseButton}
+                        style={[
+                            styles.playPauseButton,
+                            isRunning ? styles.pauseButton : styles.playButton,
+                        ]}
                     >
                         {isRunning ? <PauseSVG /> : <PlaySVG />}
                     </TouchableOpacity>
-
-                    <Slider
-                        style={styles.slider}
-                        minimumValue={0}
-                        maximumValue={1}
-                        value={(300 - timeLeft) / 300}
-                        minimumTrackTintColor="#FFB600"
-                        maximumTrackTintColor="#FAF0D1"
-                        thumbTintColor="#FFFFFF"
-                        disabled={true}
-                    />
-
-                    <Text style={styles.timeText}>{formatTime(timeLeft)}</Text>
                 </View>
             </View>
         </LinearGradient>
@@ -109,7 +120,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
     },
     contentContainer: {
-        paddingBottom: 100,
+        paddingBottom: 150,
     },
     itemImage: {
         height: 208,
@@ -133,34 +144,33 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#FFFFFF',
     },
-    playerContainer: {
+    timerSection: {
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: '#02BBBE',
-        paddingHorizontal: 16,
-        paddingVertical: 10,
-        height: 50,
-    },
-    inlineControls: {
-        flexDirection: 'row',
         alignItems: 'center',
+        paddingBottom: 20,
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
     },
     playPauseButton: {
-        marginRight: 10,
-        width: 32,
-        height: 32,
-        alignItems: 'center',
+        width: 92,
+        height: 68,
+        borderRadius: 999,
         justifyContent: 'center',
+        alignItems: 'center',
     },
-    slider: {
-        flex: 1,
-        marginRight: 10,
+    playButton: {
+        backgroundColor: '#02BBBE',
     },
-    timeText: {
-        color: '#FFFFFF',
-        fontSize: 14,
-        fontFamily: 'Helvetica Neue',
+    pauseButton: {
+        backgroundColor: 'transparent',
+        borderWidth: 3,
+        borderColor: '#02BBBE',
     },
 });
