@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRoute } from '@react-navigation/native';
-import TimerCircle from '../components/TimerCircle'; // Импорт нового компонента
+import TimerCircle from '../components/TimerCircle';
 
 import PlaySVG from '../assets/home/PlaySVG';
 import PauseSVG from '../assets/home/PauseSVG';
@@ -19,7 +19,7 @@ export default function MoodDetailScreen() {
     const route = useRoute();
     const { item } = route.params;
 
-    const totalTime = 300; // Общее время в секундах
+    const totalTime = 300;
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [isRunning, setIsRunning] = useState(false);
 
@@ -56,15 +56,11 @@ export default function MoodDetailScreen() {
         return `${mins}:${secs}`;
     };
 
-    // Вычисляем прогресс таймера от 0 до 1
     const progress = (totalTime - timeLeft) / totalTime;
 
-    // Объект кастомных стилей для TimerCircle.
-    // По дефолту компонент использует свои стили, а если переданы эти пропсы, то заменяет желтый на указанные цвета.
     const customTimerStyles = {
-        progress: '#FFB600', // Новый цвет прогресс бара
-        track: '#02BBBE',    // Новый цвет для фона трека (если TimerCircle поддерживает этот пропс)
-        // При необходимости можно добавить дополнительные свойства
+        progress: '#FFB600',
+        track: '#02BBBE',
     };
 
     return (
@@ -73,39 +69,44 @@ export default function MoodDetailScreen() {
             style={styles.gradientContainer}
         >
             <SafeAreaView style={styles.safeContainer}>
-                <ScrollView contentContainerStyle={styles.contentContainer}>
-                    {item.image ? (
-                        <Image
-                            source={item.image}
-                            style={styles.itemImage}
-                            resizeMode="cover"
-                        />
-                    ) : (
-                        <View style={[styles.itemImage, styles.fallbackImage]} />
-                    )}
-                    <Text style={styles.itemName}>{item.title}</Text>
-                    <Text style={styles.itemDescription}>{item.description}</Text>
-                </ScrollView>
-            </SafeAreaView>
-
-            <View style={styles.timerSection}>
-                <TimerCircle
-                    timerValue={formatTime(timeLeft)}
-                    progress={progress}
-                    customColors={customTimerStyles}
-                />
-                <View style={styles.bottomRow}>
-                    <TouchableOpacity
-                        onPress={toggleTimer}
-                        style={[
-                            styles.playPauseButton,
-                            isRunning ? styles.pauseButton : styles.playButton,
-                        ]}
+                <View style={styles.screenContainer}>
+                    <ScrollView
+                        contentContainerStyle={styles.scrollContent}
+                        style={styles.scrollContainer}
                     >
-                        {isRunning ? <PauseSVG /> : <PlaySVG />}
-                    </TouchableOpacity>
+                        {item.image ? (
+                            <Image
+                                source={item.image}
+                                style={styles.itemImage}
+                                resizeMode="cover"
+                            />
+                        ) : (
+                            <View style={[styles.itemImage, styles.fallbackImage]} />
+                        )}
+                        <Text style={styles.itemName}>{item.title}</Text>
+                        <Text style={styles.itemDescription}>{item.description}</Text>
+
+                        <View style={styles.timerSection}>
+                            <TimerCircle
+                                timerValue={formatTime(timeLeft)}
+                                progress={progress}
+                                customColors={customTimerStyles}
+                            />
+                            <View style={styles.bottomRow}>
+                                <TouchableOpacity
+                                    onPress={toggleTimer}
+                                    style={[
+                                        styles.playPauseButton,
+                                        isRunning ? styles.pauseButton : styles.playButton,
+                                    ]}
+                                >
+                                    {isRunning ? <PauseSVG /> : <PlaySVG />}
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
                 </View>
-            </View>
+            </SafeAreaView>
         </LinearGradient>
     );
 }
@@ -119,8 +120,15 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginHorizontal: 15,
     },
-    contentContainer: {
-        paddingBottom: 150,
+    screenContainer: {
+        flex: 1,
+        justifyContent: 'space-between',
+    },
+    scrollContainer: {
+        flex: 1,
+    },
+    scrollContent: {
+        paddingBottom: 20,
     },
     itemImage: {
         height: 208,
@@ -145,10 +153,6 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
     timerSection: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
         alignItems: 'center',
         paddingBottom: 20,
     },
