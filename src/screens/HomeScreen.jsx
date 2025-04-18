@@ -21,6 +21,7 @@ import useDatesRange from '../hooks/useDatesRange';
 
 import BookSVG from '../assets/articles/BookSVG';
 import QuizSVG from '../assets/articles/QuizSVG';
+import SettingsSVG from '../assets/articles/SettingsSVG';
 
 export default function HomeScreen() {
     const user = useSelector((state) => state.user);
@@ -126,6 +127,17 @@ export default function HomeScreen() {
                     >
                         <QuizSVG />
                         <Text style={styles.menuItemText}>Quiz</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={() => {
+                            setIsMenuOpen(false);
+                            navigation.navigate('Settings');
+                        }}
+                    >
+                        <SettingsSVG />
+                        <Text style={styles.menuItemText}>Settings</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>
