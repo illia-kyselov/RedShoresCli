@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     photoWrapper: {
         alignItems: 'center',
         marginTop: 60,
-        marginBottom: 16,
+        marginBottom: 18,
     },
     userPhoto: {
         width: 140,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     userEmail: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '400',
-        fontSize: 20,
+        fontSize: 22,
         color: '#FFFFFF',
         textAlign: 'center',
         marginBottom: 30,

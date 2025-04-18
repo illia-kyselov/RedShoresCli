@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderWidth: 1,
         borderColor: '#E4E4E4',
-        borderRadius: 14,
+        borderRadius: 16,
         backgroundColor: '#951B0A',
         paddingTop: 15,
         paddingBottom: 15,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     saveButtonText: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '500',
-        fontSize: 18,
+        fontSize: 20,
         color: '#FFFFFF',
     },
 });

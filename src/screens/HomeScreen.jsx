@@ -31,7 +31,6 @@ export default function HomeScreen() {
     const navigation = useNavigation();
 
     const [selectedDate, setSelectedDate] = useState(null);
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -47,7 +46,12 @@ export default function HomeScreen() {
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.content}>
-                    <UserAvatar photo={user.photo} />
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Profile')}
+                        activeOpacity={0.7}
+                    >
+                        <UserAvatar photo={user.photo} />
+                    </TouchableOpacity>
                     <Text style={styles.userName}>{displayName}</Text>
                     <Text style={styles.title}>Today`s plans</Text>
 
@@ -167,7 +171,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '700',
-        fontSize: 24,
+        fontSize: 26,
         color: '#FFFFFF',
         marginBottom: 20,
     },

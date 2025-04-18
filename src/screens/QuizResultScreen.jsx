@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontFamily: 'SF Pro Text',
         fontWeight: '600',
-        fontSize: 20,
+        fontSize: 22,
         color: '#ffffff',
     },
     content: {
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     resultsTitle: {
         fontFamily: 'SF Pro Text',
         fontWeight: '800',
-        fontSize: 24,
+        fontSize: 26,
         color: '#ffffff',
         textAlign: 'center',
         marginTop: 82,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     resultImage: {
         width: '100%',
         height: 211,
-        borderRadius: 16,
+        borderRadius: 18,
         marginBottom: 24,
     },
     resultText: {

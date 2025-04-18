@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     focusValue: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '700',
-        fontSize: 20,
+        fontSize: 22,
         color: '#FFFFFF',
     },
 });

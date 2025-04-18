@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontFamily: 'SF Pro Text',
         fontWeight: '600',
-        fontSize: 20,
+        fontSize: 22,
         color: '#ffffff',
     },
     content: {

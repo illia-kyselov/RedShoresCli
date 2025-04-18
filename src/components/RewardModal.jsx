@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '500',
-        fontSize: 20,
+        fontSize: 22,
         color: '#151515',
         marginBottom: 20,
         textAlign: 'center',

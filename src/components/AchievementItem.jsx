@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     achievementCircle: {
         minWidth: 156,
         height: 60,
-        borderRadius: 30,
+        borderRadius: 32,
         overflow: 'hidden',
         position: 'relative',
         justifyContent: 'center',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     achievementNumber: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '500',
-        fontSize: 20,
+        fontSize: 22,
         color: '#FFFFFF',
         marginTop: 5,
     },

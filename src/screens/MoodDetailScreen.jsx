@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         height: 208,
         width: '100%',
         borderRadius: 25,
-        marginBottom: 16,
+        marginBottom: 18,
     },
     fallbackImage: {
         backgroundColor: '#8F1A0A',
@@ -142,9 +142,9 @@ const styles = StyleSheet.create({
     itemName: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '500',
-        fontSize: 18,
+        fontSize: 20,
         color: '#FFFFFF',
-        marginBottom: 16,
+        marginBottom: 18,
     },
     itemDescription: {
         fontFamily: 'Helvetica Neue',

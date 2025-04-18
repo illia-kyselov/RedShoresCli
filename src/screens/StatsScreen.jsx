@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     statsTitle: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '700',
-        fontSize: 24,
+        fontSize: 26,
         color: '#FFFFFF',
         marginBottom: 30,
     },

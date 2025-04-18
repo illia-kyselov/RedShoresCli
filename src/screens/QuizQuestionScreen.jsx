@@ -32,7 +32,6 @@ export default function QuizQuestionScreen() {
     const dispatch = useDispatch();
     const { questionIndex } = route.params;
     const questions = useSelector(state => state.quiz.questions);
-    const userAnswers = useSelector(state => state.quiz.userAnswers);
 
     if (!questions[questionIndex]) {
         return (
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        borderRadius: 30,
+        borderRadius: 32,
     },
     scrollContent: {
         paddingTop: 312,
@@ -135,7 +134,7 @@ const styles = StyleSheet.create({
     },
     questionBlock: {
         backgroundColor: '#951B0A',
-        borderRadius: 30,
+        borderRadius: 32,
         paddingVertical: 34,
         paddingHorizontal: 10,
         marginBottom: 10,
@@ -149,14 +148,14 @@ const styles = StyleSheet.create({
     progressBarBackground: {
         flex: 1,
         height: 12,
-        borderRadius: 16,
+        borderRadius: 18,
         backgroundColor: '#FFFFFF',
         marginRight: 20,
         overflow: 'hidden',
     },
     progressBarFill: {
         height: 12,
-        borderRadius: 16,
+        borderRadius: 18,
         backgroundColor: '#FFC300',
     },
     counterText: {
@@ -168,7 +167,7 @@ const styles = StyleSheet.create({
     questionText: {
         fontFamily: 'SF Pro Text',
         fontWeight: '600',
-        fontSize: 18,
+        fontSize: 20,
         color: '#FFFFFF',
     },
     answerOption: {

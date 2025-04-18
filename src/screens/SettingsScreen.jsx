@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontFamily: 'SF Pro Text',
         fontWeight: '600',
-        fontSize: 20,
+        fontSize: 22,
         color: '#FFFFFF',
     },
     listContainer: {
@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
     },
     item: {
         backgroundColor: '#8F1A0A',
-        borderRadius: 8,
+        borderRadius: 10,
         padding: 16,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 16,
+        marginBottom: 18,
     },
     itemContent: {
         flexDirection: 'row',

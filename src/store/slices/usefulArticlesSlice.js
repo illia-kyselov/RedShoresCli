@@ -63,7 +63,7 @@ It's one thing to start, another to continue. To make micro habits stick and rea
 Conclusion
 
 Micro habits are a simple and effective way to improve your productivity and quality of life. The main thing is not to overload yourself with a large number of changes at once, but to start with small steps. They may seem small, but over time they will have a powerful effect.
-`
+`,
         },
         {
             id: 2,
@@ -117,7 +117,7 @@ Rest is not only recovery, but also an opportunity to discover something new. Re
 
 Conclusion
 A good rest is not just inaction, but a conscious restoration of strength. The right combination of active and passive rest helps to maintain productivity and stay motivated. Know how to rest without feeling guilty, and then your efficiency will only increase.
-`
+`,
         },
         {
             id: 3,
@@ -159,7 +159,7 @@ How to implement technology into your life?
 
 Conclusion
 The "10-3-2-1-0" method helps you prepare for sleep, get up easier in the morning and start the day without stress. It is especially useful for those who feel tired in the morning and want to improve their productivity. Try to implement at least some of this technique – and you will soon notice the difference!
-`
+`,
         },
         {
             id: 4,
@@ -239,7 +239,7 @@ If you have a lot of small tasks, select a "block of 2-minute tasks" and deal wi
 
 Conclusion
 These 5 methods can be combined depending on the situation. The main thing is not to overload yourself with rigid frameworks, but to find the right balance. Use flexible strategies, and time management will cease to be a source of stress!
-`
+`,
         },
     ],
 };

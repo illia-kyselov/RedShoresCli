@@ -15,7 +15,7 @@ import ArrowBack from '../assets/home/ArrowBack.jsx';
 export default function ArticleDetailsScreen() {
     const route = useRoute();
     const navigation = useNavigation();
-    const { article } = route.params; 
+    const { article } = route.params;
 
     return (
         <LinearGradient
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontFamily: 'SF Pro Text',
         fontWeight: '600',
-        fontSize: 20,
+        fontSize: 22,
         color: '#FFFFFF',
     },
     scrollContent: {
@@ -81,14 +81,14 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 208,
         borderRadius: 25,
-        marginBottom: 16,
+        marginBottom: 18,
     },
     articleTitle: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '500',
-        fontSize: 18,
+        fontSize: 20,
         color: '#FFFFFF',
-        marginBottom: 16,
+        marginBottom: 18,
     },
     articleContent: {
         fontFamily: 'Helvetica Neue',

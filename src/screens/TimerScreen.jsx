@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     taskName: {
         fontFamily: 'Helvetica Neue',
         fontWeight: '500',
-        fontSize: 20,
+        fontSize: 22,
         color: '#FFFFFF',
         textAlign: 'center',
         marginBottom: 20,
